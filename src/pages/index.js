@@ -1,29 +1,49 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { Link, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <Seo title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["AUTO", "WEBP", "AVIF"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-    </p>
-  </Layout>
-)
+const IndexPage = (props) => {
+  console.log(props)
+  return (
+    <Layout>
+      <Seo title="Home" />
+      {props.data.allBook.edges.map( edge => (
+        <div key={edge.node.id}>
+          <div>
+            <h2>
+              {edge.node.title} - <small>{edge.node.author.name}</small>
+            </h2>
+          </div>
+          <div>
+            {edge.node.summary}
+          </div>
+          <Link to={`/book/${edge.node.id}`}>
+            Join Conversation
+          </Link>
+        </div>
+      ))}
+    </Layout>
+  )
+}
+
+export const query = graphql`
+{
+  allBook {
+    edges {
+      node {
+        title
+        summary
+        id
+        author {
+          name
+        }
+      }
+    }
+  }
+}
+`
 
 export default IndexPage
