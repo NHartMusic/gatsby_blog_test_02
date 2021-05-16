@@ -28,7 +28,7 @@ exports.createPages = ({graphql, actions}) => {
             createPage({
                 path: `/book/${book.node.id}`,
                 component: bookTemplate,
-                content: book.node
+                context: book.node
             })
         })
     })
