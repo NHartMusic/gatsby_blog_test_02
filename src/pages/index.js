@@ -1,8 +1,6 @@
 import * as React from "react"
 import styled from 'styled-components'
-
 import { Link, graphql } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -25,7 +23,6 @@ const LinkButton = styled.div`
       color: black;
       background: white;
     }
-    
   }
 `
 
@@ -36,6 +33,7 @@ const IndexPage = (props) => {
       <Seo title="Home" />
       {props.data.allBook.edges.map( edge => (
         <BookItem 
+          bookCover={edge.node.localImage.childImageSharp.fixed}
           key={edge.node.id}
           bookSummary={edge.node.summary}
           bookTitle={edge.node.title}
@@ -58,6 +56,13 @@ export const query = graphql`
     edges {
       node {
         title
+        localImage {
+					childImageSharp {
+						fixed(width: 200) {
+							...GatsbyImageSharpFixed
+            }
+          }
+        }
         summary
         id
         author {
