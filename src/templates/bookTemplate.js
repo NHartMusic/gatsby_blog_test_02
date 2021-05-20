@@ -4,7 +4,6 @@ import BookItem from '../components/bookItem'
 import {graphql} from 'gatsby'
 
 const BookTemplate = (props) => {
-    console.log(props.data)
     return (
         <Layout>
             <BookItem
