@@ -1,14 +1,15 @@
-import * as React from 'react'
-import { Link } from 'gatsby'
-import { useAuth } from '../components/Firebase'
-
-import Layout from '../components/layout'
-import Seo from '../components/seo'
+import React, { useState, useContext } from 'react'
+//firebase
+import { FirebaseContext } from '../components/Firebase'
+//components
+import { Button } from '../components/common/button'
+import { Form } from '../components/common/form'
+import { Input } from '../components/common/input'
 
 const Login = () => {
 
     const [formValues, setFormValues] = React.useState({email: '', password: ''})
-    const {firebase} = useAuth()
+    const {firebase} = useContext(FirebaseContext)
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -25,24 +26,26 @@ const Login = () => {
     }
 
     return (
-        <Layout>
-            <form onSubmit={handleSubmit}>
-                <input 
+        <section>
+            <Form onSubmit={handleSubmit}>
+                <Input
                     value={formValues.email}
                     name='email' 
                     onChange={handleInputChange} 
                     placeholder='email' type='email' 
                 />
-                <input 
+                <Input
                     value={formValues.password}
                     name='password'
                     onChange={handleInputChange} 
                     placeholder='password' 
                     type='password' 
                 />
-                <button type='submit'>Login</button>
-            </form>
-        </Layout>
+                <Button type='submit' block>
+                    Login
+                </Button>
+            </Form>
+        </section>
     )
 }
 

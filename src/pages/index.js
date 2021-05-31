@@ -2,7 +2,6 @@ import * as React from "react"
 import styled from 'styled-components'
 import { Link, graphql } from "gatsby"
 
-import Layout from "../components/layout"
 import Seo from "../components/seo"
 import BookItem from '../components/bookItem'
 
@@ -28,7 +27,7 @@ const LinkButton = styled.div`
 
 const IndexPage = (props) => {
   return (
-    <Layout>
+    <section>
       <Seo title="Home" />
       {props.data.allBook.edges.map( edge => (
         <BookItem 
@@ -45,7 +44,7 @@ const IndexPage = (props) => {
           </LinkButton>
         </BookItem>
       ))}
-    </Layout>
+    </section>
   )
 }
 
